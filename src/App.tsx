@@ -1,6 +1,7 @@
 import { PropType, defineComponent } from "vue";
 import { RouterView } from "vue-router";
 import s from './App.module.scss'
+import { Menu } from "./views/Menu";
 
 export const App = defineComponent({
   props: {
@@ -11,7 +12,7 @@ export const App = defineComponent({
   setup(props, context) {
     return () => (
       <div class={s.wrapper}>
-        <div>xxx</div>
+        <Menu />
         <div><RouterView /></div>
       </div>
     );
