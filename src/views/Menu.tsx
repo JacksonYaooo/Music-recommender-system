@@ -38,33 +38,43 @@ export const Menu = defineComponent({
         {
           isLoading.value ?
             <div>loading</div> :
-            <div>
+            <div style='height: 100vh;'>
               <el-menu
                 default-active={currentRoute.value}
                 class="el-menu-vertical-demo"
+                style="height: 100vh;"
                 collapse={!isCollapse.value}
               >
                 {
                   MenuMap.map((it, i) => {
                     return <router-link style='text-decoration: none;' to={it.route}>
-                      <el-menu-item index={String(i + 1)} key={i}>
-                        <el-icon><Icon name={it.icon} /></el-icon>
-                        {isCollapse.value ? it.title : ''}
-                      </el-menu-item>
+                      <el-tooltip
+                        disabled={isCollapse.value}
+                        content={it.title}
+                        raw-content
+                        hide-after='0'
+                        placement='right'
+                      >
+                        <el-menu-item style='height: 10vh' index={String(i + 1)} key={i}>
+                          <el-icon><Icon name={it.icon} /></el-icon>
+                          {isCollapse.value ? it.title : ''}
+                        </el-menu-item>
+                      </el-tooltip>
+
                     </router-link>
                   })
                 }
+                <el-switch
+                  v-model={isCollapse.value}
+                  class="ml-2"
+                  size='large'
+                  width='60'
+                  inline-prompt
+                  style="--el-switch-on-color: #409eff; --el-switch-off-color: #409eff;position: fixed; bottom: 0;"
+                  active-text="折叠"
+                  inactive-text="展开"
+                />
               </el-menu>
-              <el-switch
-                v-model={isCollapse.value}
-                class="ml-2"
-                size='large'
-                width='60'
-                inline-prompt
-                style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-                active-text="折叠"
-                inactive-text="展开"
-              />
             </div>
         }
       </>
