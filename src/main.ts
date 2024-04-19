@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import './assets/css/reset.css'
+import './assets/css/vars.scss'
+
 import router from './router'
 import { App } from './App'
 

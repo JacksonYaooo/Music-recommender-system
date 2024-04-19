@@ -13,7 +13,7 @@ export const App = defineComponent({
     return () => (
       <div class={s.wrapper}>
         <Menu />
-        <div><RouterView /></div>
+        <div class={s.right}><RouterView /></div>
       </div>
     );
   }

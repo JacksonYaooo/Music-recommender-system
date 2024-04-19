@@ -41,8 +41,10 @@ export const Menu = defineComponent({
             <div style='height: 100vh;'>
               <el-menu
                 default-active={currentRoute.value}
-                class="el-menu-vertical-demo"
-                style="height: 100vh;"
+                style="height: 100vh"
+                background-color='#374f67'
+                text-color='#fff'
+                active-text-color='#f57b70'
                 collapse={!isCollapse.value}
               >
                 {
@@ -52,7 +54,7 @@ export const Menu = defineComponent({
                         disabled={isCollapse.value}
                         content={it.title}
                         raw-content
-                        hide-after='0'
+                        hide-after={0}
                         placement='right'
                       >
                         <el-menu-item style='height: 10vh' index={String(i + 1)} key={i}>
