@@ -72,7 +72,7 @@ export const Menu = defineComponent({
                   size='large'
                   width='60'
                   inline-prompt
-                  style="--el-switch-on-color: #409eff; --el-switch-off-color: #409eff;position: fixed; bottom: 0;"
+                  style="--el-switch-on-color: #769ba6; --el-switch-off-color: #769ba6;position: fixed; bottom: 0;"
                   active-text="折叠"
                   inactive-text="展开"
                 />

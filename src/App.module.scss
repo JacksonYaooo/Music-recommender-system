@@ -1,6 +1,9 @@
 .wrapper{
   display: flex;
 }
+.left {
+  position: fixed;
+}
 .right {
   flex: 1;
 }
