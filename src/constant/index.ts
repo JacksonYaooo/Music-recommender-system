@@ -9,3 +9,6 @@ export const throttle = (callback, delay) => {
     callback(...args)
   }
 }
+export function imgFormat(url:string,width:number,height = width){
+  return url + `?param=${width}x${height}`
+}
