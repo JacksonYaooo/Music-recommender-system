@@ -12,7 +12,9 @@ export const App = defineComponent({
   setup(props, context) {
     return () => (
       <div class={s.wrapper}>
-        <div class={s.left}><Menu /></div>
+        <div class={s.left}>
+          <Menu />
+        </div>
         <div class={s.right}><RouterView /></div>
       </div>
     );
