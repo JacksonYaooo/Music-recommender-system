@@ -41,7 +41,7 @@ export const Menu = defineComponent({
             <div style='height: 100vh;'>
               <el-menu
                 default-active={currentRoute.value}
-                style="height: 100vh"
+                style="height: 100vh; borderRight: none;"
                 background-color='#233649'
                 text-color='#fff'
                 active-text-color='#f57b70'
@@ -70,7 +70,7 @@ export const Menu = defineComponent({
                   v-model={isCollapse.value}
                   class="ml-2"
                   size='large'
-                  width='60'
+                  width='2rem'
                   inline-prompt
                   style="--el-switch-on-color: #769ba6; --el-switch-off-color: #769ba6;position: fixed; bottom: 0;"
                   active-text="折叠"

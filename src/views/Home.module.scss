@@ -14,12 +14,12 @@
 }
 .carousel {
   width: 90%;
-  padding-top: 3rem;
+  padding-top: 1rem;
   box-sizing: border-box;
   margin: 0rem auto;
-  margin-bottom: 5rem;
+  margin-bottom: 1rem;
   ul {
-    bottom: -13px;
+    bottom: -1rem;
   }
 }
 // .image {
@@ -29,15 +29,15 @@
 .container {
   padding-bottom: 3rem;
   .box {
-    width: 90rem;
     margin: 0 auto;
     opacity: .9;
     background: #222222;
     // border-bottom: solid #233649 5px;
-    padding: 6rem;
-    margin-bottom: 2rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
     box-sizing: border-box;
     .title {
+      font-size: 0.5rem;
       font-weight: bold;
       color: var(--font-color);
     }
