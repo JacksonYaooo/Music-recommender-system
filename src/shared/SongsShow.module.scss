@@ -1,7 +1,6 @@
 .songsContainer {
   overflow-x: auto;
   width: 100%;
-  height: 8rem;
   margin-top: 0.5rem;
   &::-webkit-scrollbar {
     display: none;
@@ -10,8 +9,9 @@
     display: flex;
     transition: transform 0.5s ease;
     .song {
+      cursor: pointer;
       flex: 0 0 5rem;
-      height: 6rem;
+      min-height: 6rem;
       margin-left: 0.5rem;
       background: var(--songs-bg);
       display: flex;
@@ -26,9 +26,14 @@
         height: 2.5rem;
       }
       .songName {
+        max-width: 80%;
         font-size: 0.5rem;
         text-align: center;
+        margin: 0 auto;
         margin-bottom: 0.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .singer {
         text-align: center;

@@ -5,7 +5,7 @@ import { throttle } from "../constant";
 export const SongsShow = defineComponent({
   props: {
     songs: {
-      type: Array as PropType<string[]>,
+      type: Array as PropType<any[]>,
       default: []
     },
   },
@@ -25,7 +25,7 @@ export const SongsShow = defineComponent({
       const startScrollLeft = element.scrollLeft
       const distance = targetScrollLeft - startScrollLeft
       const startTime = performance.now()
-    
+
       const animate = (currentTime) => {
         const elapsedTime = currentTime - startTime
         const progress = Math.min(elapsedTime / duration, 1)
@@ -34,7 +34,7 @@ export const SongsShow = defineComponent({
           requestAnimationFrame(animate)
         }
       }
-    
+
       requestAnimationFrame(animate)
     }
     watchEffect(() => {
@@ -44,11 +44,16 @@ export const SongsShow = defineComponent({
       <div class={s.songsContainer} ref={refs}>
         <div class={s.songs}>
           {
-            props.songs.map(song => {
+            props.songs.length > 0 && props.songs.map(song => {
               return <div class={s.song}>
-                <div class={s.bg}>歌曲图片</div>
-                <div class={s.songName}>修炼爱情</div>
-                <div class={s.singer}>林俊杰</div>
+                <img class={s.bg} src={song?.album?.blurPicUrl} alt="" />
+                <div class={s.songName}>{song?.album?.name}</div>
+                <div class={s.singer}>
+                  {song?.album?.artists.length > 1
+                    ? `${song.album.artists.map(artist => artist.name).join(' & ')}`
+                    : song?.album?.artists[0]?.name
+                  }
+                </div>
                 <div class={s.songInfo}>
                   <span class={s.score}>9.8</span>
                   <span class={s.like}>❤</span>

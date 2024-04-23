@@ -14,10 +14,19 @@ export const Home = defineComponent({
       const res = await http.get<any>('/banner')
       const bannerList = res.data?.banners
       images.value = bannerList.map(item => imgFormat(item.imageUrl, 730, 284))
-      console.log(images.value)
+    }
+    const requestNewSongs = async () => {
+      const res = await http.get<any>('/newSongs')
+      songs.value = res.data.data.map(item => ({
+        album: item.album,
+        mp3Url: item.mp3Url
+      })).splice(0, 22)
+      console.log(songs.value);
+
     }
     onMounted(() => {
       requestBanner()
+      requestNewSongs()
     })
     return () => (
       <div class={s.wrapper}>
