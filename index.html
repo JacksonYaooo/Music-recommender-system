@@ -18,12 +18,7 @@
     function setRemSize() {
       var docEl = document.documentElement;
       var clientWidth = docEl.clientWidth;
-      // if (clientWidth > 750) {
-      //   docEl.style.fontSize = '16px';
-      // } else {
       docEl.style.fontSize = clientWidth / 750 * 16 + 'px';
-      console.log(docEl.style.fontSize);
-      // }
     }
 
     window.onload = function () {

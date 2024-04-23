@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { Icon } from "../shared/Icon";
 import { IconType } from '../shared/Icon'
 import { useRoute } from "vue-router";
-
 interface IMenu {
   title: string;
   route: String;
@@ -28,9 +27,7 @@ export const Menu = defineComponent({
       const routePath = route.path.split('/')[1]
       const currentMenuIndex = MenuMap.findIndex(it => it.route === routePath)
       currentRoute.value = String(currentMenuIndex + 1)
-      if (currentMenuIndex !== -1) {
-        isLoading.value = false
-      }
+      isLoading.value = false
     })
 
     return () => (
@@ -41,41 +38,21 @@ export const Menu = defineComponent({
             <div style='height: 100vh;'>
               <el-menu
                 default-active={currentRoute.value}
-                style="height: 100vh; borderRight: none;"
+                style="height: 100vh; borderRight: none;width: 5rem;fontSize: 2rem;"
                 background-color='#233649'
                 text-color='#fff'
                 active-text-color='#f57b70'
-                collapse={!isCollapse.value}
               >
                 {
                   MenuMap.map((it, i) => {
                     return <router-link style='text-decoration: none;' to={it.route}>
-                      <el-tooltip
-                        disabled={isCollapse.value}
-                        content={it.title}
-                        raw-content
-                        hide-after={0}
-                        placement='right'
-                      >
-                        <el-menu-item style='height: 10vh' index={String(i + 1)} key={i}>
-                          <el-icon><Icon name={it.icon} /></el-icon>
-                          {isCollapse.value ? it.title : ''}
-                        </el-menu-item>
-                      </el-tooltip>
-
+                      <el-menu-item style='height: 10vh; fontSize: 0.4rem;' index={String(i + 1)} key={i}>
+                        <el-icon><Icon name={it.icon} /></el-icon>
+                        {it.title}
+                      </el-menu-item>
                     </router-link>
                   })
                 }
-                <el-switch
-                  v-model={isCollapse.value}
-                  class="ml-2"
-                  size='large'
-                  width='2rem'
-                  inline-prompt
-                  style="--el-switch-on-color: #769ba6; --el-switch-off-color: #769ba6;position: fixed; bottom: 0;"
-                  active-text="折叠"
-                  inactive-text="展开"
-                />
               </el-menu>
             </div>
         }
