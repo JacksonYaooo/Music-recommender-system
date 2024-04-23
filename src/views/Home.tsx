@@ -14,8 +14,9 @@ export const Home = defineComponent({
    
     return () => (
     <div class={s.wrapper}>
+      <div class={s.activeBg}></div>
       <div class={s.carousel}>
-        <el-carousel interval={4000} type="card" height="290px" autoplay={false}>
+        <el-carousel interval={2000} type="card" height="290px" autoplay={true}>
         {
           images.value.map((it, i) => {
             return <el-carousel-item class={s.image}>
@@ -32,14 +33,16 @@ export const Home = defineComponent({
           <SongsShow songs={songs.value}/>
         </div>
         <div class={s.box}>
-          <div>———— 高分推荐 ————</div>
+          <div class={s.title}>———— 高分推荐 ————</div>
           <SongsShow songs={songs.value}/>
         </div>
         <div class={s.box}>
-          <div>———— 猜你喜欢 ————</div>
+          <div class={s.title}>———— 猜你喜欢 ————</div>
+          <SongsShow songs={songs.value}/>
         </div>
         <div class={s.box}>
-          <div>———— 推荐歌单 ————</div>
+          <div class={s.title}>———— 推荐歌单 ————</div>
+          <SongsShow songs={songs.value}/>
         </div>
       </div>
     </div>

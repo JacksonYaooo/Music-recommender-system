@@ -46,12 +46,12 @@ export const SongsShow = defineComponent({
           {
             props.songs.map(song => {
               return <div class={s.song}>
-                <div class={s.bg}>fengmian</div>
+                <div class={s.bg}>歌曲图片</div>
                 <div class={s.songName}>修炼爱情</div>
                 <div class={s.singer}>林俊杰</div>
                 <div class={s.songInfo}>
                   <span class={s.score}>9.8</span>
-                  <span class={s.like}>收藏</span>
+                  <span class={s.like}>❤</span>
                 </div>
               </div>
             })

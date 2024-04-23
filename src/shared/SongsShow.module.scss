@@ -16,6 +16,7 @@
       background: var(--songs-bg);
       display: flex;
       flex-direction: column;
+      border-radius: 3%;
       // align-items: center;
       .bg {
         margin: 0 auto;
@@ -42,8 +43,11 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        .score {}
-        .like {}
+        // .score {}
+        .like {
+          font-size: 24px;
+          color: #9c2215;
+        }
       }
     }
     .song:nth-child(1) {

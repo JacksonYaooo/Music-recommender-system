@@ -1,25 +1,41 @@
 .wrapper {
   width: 100%;
   min-height: 100vh;
-  padding-top: 2rem;
-  box-sizing: border-box;
-  background: var(--wrapper-bg);
+  .activeBg {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background: url(../assets/bg4.jpg) no-repeat;
+    // background-color: #a2a2a2;
+    // opacity: 0.9;
+    background-size: cover;
+    z-index: -2;
+  }
 }
 .carousel {
-  width: 81%;
-  margin: 0 auto;
-  margin-bottom: 2rem;
+  width: 90%;
+  padding-top: 3rem;
+  box-sizing: border-box;
+  margin: 0rem auto;
+  margin-bottom: 5rem;
+  ul {
+    bottom: -13px;
+  }
 }
-.image {
-  background-color: #dedcdc;
-}
+// .image {
+//   // background-color: #dedcdc;
+// }
 
 .container {
+  padding-bottom: 3rem;
   .box {
     width: 90rem;
     margin: 0 auto;
-    background: #fff;
-    padding: 2rem 2rem 0rem 2rem;
+    opacity: .9;
+    background: #222222;
+    // border-bottom: solid #233649 5px;
+    padding: 6rem;
+    margin-bottom: 2rem;
     box-sizing: border-box;
     .title {
       font-weight: bold;

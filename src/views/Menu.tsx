@@ -42,7 +42,7 @@ export const Menu = defineComponent({
               <el-menu
                 default-active={currentRoute.value}
                 style="height: 100vh"
-                background-color='#374f67'
+                background-color='#233649'
                 text-color='#fff'
                 active-text-color='#f57b70'
                 collapse={!isCollapse.value}
