@@ -1,7 +1,9 @@
 from . import index
 from flask import jsonify
+import requests
 
-@index.route('/', methods=['GET'])
+@index.route('/banner', methods=['GET'])
 def index_router():
-    print(1111)
-    return '111111'
+  response = requests.get('http://codercba.com:9002/banner')
+  result = response.text
+  return result

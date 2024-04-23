@@ -12,13 +12,18 @@
 }
 
 .carousel {
-  width: 74%;
+  width: 90%;
   padding-top: 1rem;
   box-sizing: border-box;
   margin: 0rem auto;
   margin-bottom: 1rem;
   ul {
     bottom: -0.2rem;
+  }
+  .image {
+    >img {
+      object-fit: fill;
+    }
   }
 }
 .container {
