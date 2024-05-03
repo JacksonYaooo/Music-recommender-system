@@ -9,6 +9,7 @@
     display: flex;
     transition: transform 0.5s ease;
     .song {
+      max-width: 5rem;
       cursor: pointer;
       flex: 0 0 5rem;
       min-height: 6rem;
@@ -26,7 +27,7 @@
         height: 2.5rem;
       }
       .songName {
-        max-width: 80%;
+        max-width: 60%;
         font-size: 0.5rem;
         text-align: center;
         margin: 0 auto;
@@ -36,8 +37,14 @@
         text-overflow: ellipsis;
       }
       .singer {
+        padding: 0 0.5rem;
         text-align: center;
         font-size: 0.4rem;
+        overflow:hidden; 
+        text-overflow:ellipsis;
+        display:-webkit-box; 
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:2; 
       }
       .songInfo {
         flex: 1;
@@ -59,5 +66,4 @@
       margin-left: 0;
     }
   }
-  
 }

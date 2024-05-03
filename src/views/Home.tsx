@@ -21,8 +21,6 @@ export const Home = defineComponent({
         album: item.album,
         mp3Url: item.mp3Url
       })).splice(0, 22)
-      console.log(songs.value);
-
     }
     onMounted(() => {
       requestBanner()
