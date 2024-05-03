@@ -8,16 +8,21 @@
   .songs {
     display: flex;
     transition: transform 0.5s ease;
+    .song:hover .bg{
+      transform: scale(1.2);
+    }
     .song {
       max-width: 5rem;
       cursor: pointer;
       flex: 0 0 5rem;
       min-height: 6rem;
       margin-left: 0.5rem;
+      padding-bottom: 0.1rem;
       background: var(--songs-bg);
       display: flex;
       flex-direction: column;
       border-radius: 3%;
+      overflow: hidden;
       .bg {
         margin: 0 auto;
         margin-top: 0.5rem;
@@ -25,6 +30,7 @@
         background: var(--wrapper-bg);
         width: 2.5rem;
         height: 2.5rem;
+        transition: transform 0.3s ease; 
       }
       .songName {
         max-width: 60%;
@@ -52,13 +58,9 @@
         box-sizing: border-box;
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
+        align-items: center;
         .score {
           font-size: 0.6rem;
-        }
-        .like {
-          font-size: 1rem;
-          color: #9c2215;
         }
       }
     }
