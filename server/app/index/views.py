@@ -13,7 +13,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 sid = SentimentIntensityAnalyzer()
 # snownlp
 import snownlp
-# from pymongo import UpdateOne
+from pymongo import UpdateOne
 
 
 proxies = { "http": None, "https": None}
@@ -44,7 +44,8 @@ def index_score():
 
   # 存储所有评论的情感得分和评论内容
   all_comment_scores = []
-
+  # 存储所有更新请求
+  bulk_updates = []
   # 遍历每个歌曲数据
   for song_data in songs_data:
       # 获取当前歌曲的ID
@@ -77,12 +78,12 @@ def index_score():
       final_score = round(average_score * 10, 2)
       print(final_score)
       all_comment_scores.append({'score': final_score, 'id': song_id})
-      # # 构建更新请求
-      # update_request = UpdateOne({'id': song_id}, {'$set': {'score': final_score}}, upsert=True)
-      # bulk_updates.append(update_request)
+      # 构建更新请求
+      update_request = UpdateOne({'id': song_id}, {'$set': {'score': final_score}}, upsert=True)
+      bulk_updates.append(update_request)
 
-      # # 批量执行更新请求
-      # if bulk_updates:
-      #     mongo.db.songs.bulk_write(bulk_updates)
+      # 批量执行更新请求
+      if bulk_updates:
+          mongo.db.songs.bulk_write(bulk_updates)
 
   return jsonify({'comment_scores': all_comment_scores})
