@@ -55,8 +55,8 @@ export const SongsShow = defineComponent({
                   }
                 </div>
                 <div class={s.songInfo}>
-                  <span class={s.score}>9.8</span>
-                  <span class={s.like}>❤</span>
+                  <span class={s.score}>{song?.album?.score || ''}</span>
+                  <i class="iconfont icon-aixin1"></i>
                 </div>
               </div>
             })

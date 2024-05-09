@@ -21,7 +21,7 @@
     bottom: -0.2rem;
   }
   .image {
-    >img {
+    > img {
       object-fit: fill;
     }
   }
@@ -30,7 +30,7 @@
   padding-bottom: 3rem;
   .box {
     margin: 0 auto;
-    opacity: .9;
+    opacity: 0.9;
     background: #222222;
     padding: 1rem;
     margin-bottom: 0.5rem;
@@ -39,6 +39,105 @@
       font-size: 0.5rem;
       font-weight: bold;
       color: var(--font-color);
+    }
+  }
+}
+
+.wrapper_1 {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+
+  .content {
+    display: flex;
+    width: 100%;
+    height: 24.5rem;
+    background: url("https://s2.music.126.net/style/web2/img/index/index_bill.png?e4a5c9573426efcc5ef27c61e3c8e2fe")
+      no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    .item {
+      flex: 1;
+
+      .header {
+        height: 4rem;
+        display: flex;
+        margin: 0.6rem 0px 0 1.2rem;
+        cursor: pointer;
+
+        .image {
+          width: 4.5rem;
+          height: 4rem;
+          position: relative;
+          cursor: pointer;
+
+          > img {
+            width: 4.5rem;
+            height: 4rem;
+          }
+        }
+
+        .info {
+          margin: 0.5rem 0 0 0.5rem;
+
+          .name {
+            font-weight: bold;
+            font-size: 14px;
+          }
+
+          .buttonF {
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.7rem;
+
+            .button {
+              margin-top: 1.5rem;
+              margin-right: 12px;
+            }
+          }
+        }
+      }
+    }
+
+    .list {
+      padding-top: 1rem;
+      :nth-child(-n + 3) .index {
+        color: #c10d0c;
+      }
+
+      .listItem {
+        position: relative;
+        display: flex;
+        height: 1.83rem;
+        align-items: center;
+        line-height: 2rem;
+
+        .index {
+          width: 35px;
+          text-align: center;
+          margin-left: 1rem;
+          font-size: 0.5rem;
+        }
+      }
+
+      .info {
+        color: #000;
+        width: 8rem;
+        height: 0.5rem;
+        line-height: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        .name {
+          cursor: pointer;
+          font-size: 0.5rem;
+          overflow: hidden;
+          flex: 1;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
     }
   }
 }

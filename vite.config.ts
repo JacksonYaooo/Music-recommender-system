@@ -17,10 +17,10 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      '/api': {
+      "/api": {
         // target: 'http://124.70.188.74/',
-        target: 'http://localhost:3001',
-      }
-    }
+        target: "http://localhost:3001",
+      },
+    },
   },
 });
