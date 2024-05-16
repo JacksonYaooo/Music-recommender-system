@@ -5,15 +5,14 @@ from bson.json_util import dumps
 from random import sample, randint, shuffle
 import random
 import requests
-import nltk
 import re
-# NLTK库
-from nltk.tokenize import sent_tokenize
-from nltk.tokenize import word_tokenize
-from nltk.corpus import brown
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
-# 创建情感分析器
-sid = SentimentIntensityAnalyzer()
+# # NLTK库
+# from nltk.tokenize import sent_tokenize
+# from nltk.tokenize import word_tokenize
+# from nltk.corpus import brown
+# from nltk.sentiment.vader import SentimentIntensityAnalyzer
+# # 创建情感分析器
+# sid = SentimentIntensityAnalyzer()
 # snownlp
 import snownlp
 from pymongo import UpdateOne

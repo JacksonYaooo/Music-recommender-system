@@ -12,3 +12,8 @@ export const throttle = (callback, delay) => {
 export function imgFormat(url:string,width:number,height = width){
   return url + `?param=${width}x${height}`
 }
+
+// 获取assets静态资源
+export  const getAssetsFile = (url: string) => {
+  return new URL(`../assets/${url}`, import.meta.url).href
+}
