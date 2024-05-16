@@ -11,7 +11,7 @@
   justify-content: center;
   align-items: center;
   .container {
-    width: 70%;
+    width: 34rem;
     height: 80%;
     background: #a0a9bd;
     display: flex;
@@ -23,7 +23,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 30%;
+      width: 10.2rem;
       h1 {
         font-size: 1.2rem;
         letter-spacing: 0.2rem;
@@ -34,8 +34,15 @@
         height: 7rem;
       }
     }
+    .left-active {
+      width: 50%;
+    }
+    .right-active {
+      width: 50%;
+      background: red;
+    }
     .right {
-      width: 70%;
+      width: 23.8rem;
       background: #fff;
       border-radius: 0.8rem;
       display: flex;
@@ -47,6 +54,7 @@
         flex-direction: column;
         h3 {
           margin-bottom: 2rem;
+          transition: all .3s ease;
         }
         input {
           border: none;
@@ -63,15 +71,54 @@
           transition: all 0.3s ease;
         }
         button {
+          cursor: pointer;
           margin-top: 0.5rem;
           border-radius: 0.2rem;
-          height: 1.5rem;
+          height: 1.2rem;
           border: none;
           color: #fff;
           background: #445469;
         }
+        button:hover {
+          background-color: #a0a9bd;
+          transition: all .3s ease;
+          color: white;
+        }
+        button:active {
+          background-color: #445469;
+          color: white;
+          transform: translateY(2px);
+        }
+        
+      }
+      .toast {
+        margin-top: 0.2rem;
+        font-size: 0.4rem;
+        float: right;
+        cursor: pointer;
+        position: relative;
+        float: right;
+        text-decoration: none;
+      }
+      .toast:before{
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -0.1rem;
+        width: 0;
+        height: 2px;
+        background: #445469;
+        transition: all .3s;
+      }
+      .toast:hover:before{
+        width: 100%;
+        left: 0;
+        right: 0;
       }
     }
   }
   
+}
+.transition-width {
+  transition: width 0.3s ease;
 }
