@@ -40,6 +40,7 @@ export const SongsShow = defineComponent({
     watchEffect(() => {
       refs.value?.addEventListener('wheel', throttledHandleWheel)
     })
+    console.log(props.songs)
     return () => (
       <div class={s.songsContainer} ref={refs}>
         <div class={s.songs}>
@@ -56,7 +57,7 @@ export const SongsShow = defineComponent({
                 </div>
                 <div class={s.songInfo}>
                   <span class={s.score}>{song?.album?.score || ''}</span>
-                  <i class="iconfont icon-aixin1"></i>
+                  <i class="iconfont icon-aixin"></i>
                 </div>
               </div>
             })

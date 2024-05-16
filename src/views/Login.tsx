@@ -1,6 +1,7 @@
 import { PropType, defineComponent, reactive, ref } from "vue";
 import s from "./Login.module.scss";
 import { getAssetsFile } from "../constant";
+import { useRouter } from "vue-router";
 
 export const Login = defineComponent({
   setup(props, context) {
@@ -9,9 +10,15 @@ export const Login = defineComponent({
     const left = ref<any>(null)
     const logo = ref<any>(null)
     const toastStatus = ref<boolean>(true)
+
+    const router = useRouter()
+
     const submit = () => {
       if (!loginInfo.value) return
       localStorage.setItem('loginInfo', loginInfo.value)
+      setTimeout(() => {
+        router.push('/home')
+      }, 200)
     }
     const create = () => {
       right.value.style.transition = 'width 0.3s ease'

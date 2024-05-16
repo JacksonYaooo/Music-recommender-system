@@ -8,10 +8,13 @@ import axios from "axios";
 
 export const Home = defineComponent({
   setup(props, context) {
+    const wrapper = ref<any>(null)
     const images = ref([])
-    const songs = ref([1,2,3,4,5,6,7,8,9,10])
+    const songs = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     const highSongs = ref([])
-    const rankings = ref<{coverImgUrl: string, name: string, tracks: [], creator: string}[]>([])
+    const rankings = ref<{ coverImgUrl: string, name: string, tracks: [], creator: string }[]>([])
+    const isLoading = ref(true)
+
     const requestBanner = async () => {
       const res = await http.get<any>('/banner')
       const bannerList = res.data?.banners
@@ -23,6 +26,9 @@ export const Home = defineComponent({
         album: item.album,
         mp3Url: item.mp3Url
       })).splice(0, 22)
+      isLoading.value = false
+      wrapper.value.style.height = 'auto'
+
     }
     const requestHighScore = async () => {
       const res = await http.get<any>('/highScore')
@@ -41,20 +47,21 @@ export const Home = defineComponent({
       const res2 = await axios.get('http://codercba.com:9002/playlist/track/all?id=3779629&limit=10&offset=1')
       const res3 = await axios.get('http://codercba.com:9002/playlist/track/all?id=2884035&limit=10&offset=1')
       rankings.value = [
-        {name: '飙升榜', tracks: res1.data.songs, coverImgUrl: 'http://p1.music.126.net/pcYHpMkdC69VVvWiynNklA==/109951166952713766.jpg', creator: '网易云音乐'},
-        {name: '新歌榜', tracks: res2.data.songs, coverImgUrl: 'http://p1.music.126.net/wVmyNS6b_0Nn-y6AX8UbpQ==/109951166952686384.jpg', creator: '网易云音乐'},
-        {name: '原创榜', tracks: res3.data.songs, coverImgUrl: 'http://p1.music.126.net/iFZ_nw2V86IFk90dc50kdQ==/109951166961388699.jpg', creator: '原创君'}
+        { name: '飙升榜', tracks: res1.data.songs, coverImgUrl: 'http://p1.music.126.net/pcYHpMkdC69VVvWiynNklA==/109951166952713766.jpg', creator: '网易云音乐' },
+        { name: '新歌榜', tracks: res2.data.songs, coverImgUrl: 'http://p1.music.126.net/wVmyNS6b_0Nn-y6AX8UbpQ==/109951166952686384.jpg', creator: '网易云音乐' },
+        { name: '原创榜', tracks: res3.data.songs, coverImgUrl: 'http://p1.music.126.net/iFZ_nw2V86IFk90dc50kdQ==/109951166961388699.jpg', creator: '原创君' }
       ]
       console.log(rankings.value)
     }
     onMounted(() => {
+      wrapper.value.style.height = '100vh'
       requestBanner()
       requestNewSongs()
       requestHighScore()
       requestList()
     })
     return () => (
-      <div class={s.wrapper}>
+      <div ref={wrapper} class={s.wrapper} v-loading={isLoading.value} element-loading-text={'加载中...'}>
         <div class={s.activeBg}></div>
         <div class={s.carousel}>
           <el-carousel interval={2000} type="card" height="290px" autoplay={true}>
@@ -66,7 +73,6 @@ export const Home = defineComponent({
               })
             }
           </el-carousel>
-
         </div>
         <div class={s.container}>
           <div class={s.box}>
