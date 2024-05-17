@@ -12,6 +12,7 @@ export const Home = defineComponent({
     const images = ref([])
     const songs = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     const highSongs = ref([])
+    const mightLike = ref<any>([])
     const rankings = ref<{ coverImgUrl: string, name: string, tracks: [], creator: string }[]>([])
     const isLoading = ref(true)
 
@@ -43,6 +44,20 @@ export const Home = defineComponent({
         mp3Url: ''
       }))
     }
+    const requestMightLike = async () => {
+      const res = await http.get<any>('/getCooperateSongs')
+      const length = 15 // 改这个数 可以选择推荐几首歌
+      mightLike.value = res.data.splice(0, length).map(item => ({
+        album: {
+          id: item.id,
+          blurPicUrl: item.picUrl,
+          name: item.name,
+          score: item.score,
+          artists: [{ name: item.article }]
+        },
+        mp3Url: ''
+      }))
+    }
     const requestList = async () => {
       const res1 = await axios.get('http://codercba.com:9002/playlist/track/all?id=19723756&limit=10&offset=1')
       const res2 = await axios.get('http://codercba.com:9002/playlist/track/all?id=3779629&limit=10&offset=1')
@@ -52,7 +67,6 @@ export const Home = defineComponent({
         { name: '新歌榜', tracks: res2.data.songs, coverImgUrl: 'http://p1.music.126.net/wVmyNS6b_0Nn-y6AX8UbpQ==/109951166952686384.jpg', creator: '网易云音乐' },
         { name: '原创榜', tracks: res3.data.songs, coverImgUrl: 'http://p1.music.126.net/iFZ_nw2V86IFk90dc50kdQ==/109951166961388699.jpg', creator: '原创君' }
       ]
-      console.log(rankings.value)
     }
     onMounted(() => {
       wrapper.value.style.height = '100vh'
@@ -60,6 +74,7 @@ export const Home = defineComponent({
       requestNewSongs()
       requestHighScore()
       requestList()
+      requestMightLike()
     })
     return () => (
       <div ref={wrapper} class={s.wrapper} v-loading={isLoading.value} element-loading-text={'加载中...'}>
@@ -86,7 +101,7 @@ export const Home = defineComponent({
           </div>
           <div class={s.box}>
             <div class={s.title}>———— 猜你喜欢 ————</div>
-            <SongsShow songs={songs.value} />
+            <SongsShow songs={mightLike.value} />
           </div>
           <div class={s.box}>
             <div class={s.title}>———— 推荐榜单 ————</div>

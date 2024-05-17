@@ -96,6 +96,7 @@ def index_high_score():
 
     return jsonify({'data': top_20_songs})
 
+# 情感分析得分
 @index.route('/score', methods=['GET'])
 def index_score():
   # 情感分析
@@ -155,6 +156,7 @@ def index_score():
 
   return jsonify({'comment_scores': all_comment_scores})
 
+# 重新计算比例
 @index.route('/cooperate', methods=['GET'])
 def index_addData():
     # 查询数据库中的所有歌曲数据
@@ -274,6 +276,7 @@ def convert_to_decade(date_str):
     else:
         return "无法识别的日期格式"
 
+# 计算每首歌的权重得分
 @index.route('/compute', methods=['GET'])
 def index_compute():
     cooperate_raw = [0.3, 0.2, 0.1, 0.4]
@@ -342,6 +345,7 @@ def index_compute():
         mongo.db.songs.update_one({'id': id}, {'$set': { "cooperate_score": percentage}})
     return '1'
 
+# 获取协同过滤后的数据（推荐算法）
 @index.route('/getCooperateSongs', methods=['GET'])
 def index_getCooperateSongs():
     cooperate_data = list(mongo.db.songs.find({'like': 1}).sort('cooperate_score', -1))
@@ -352,6 +356,7 @@ def index_getCooperateSongs():
     # 将处理后的查询结果转换为JSON并返回
     return jsonify(cooperate_data), 200
 
+# 忘了是啥
 @index.route('/xxx', methods=['GET'])
 def index_xxx():
     cooperate_data = list(mongo.db.cooperate.find())

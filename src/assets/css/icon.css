@@ -1,8 +1,11 @@
-@import url('//at.alicdn.com/t/c/font_4550583_nug62sogh6s.css');
-.iconfont{
+@import url("//at.alicdn.com/t/c/font_4550583_u2em2m2w09g.css");
+.iconfont {
   font-size: 1rem;
 }
 .icon-aixin {
-  font-size: 0.8rem;
-  color: #e5404f;
+  font-size: 0.6rem;
+  /* color: #e5404f; */
+}
+.icon-aixin1 {
+  font-size: 0.6rem;
 }
