@@ -3,6 +3,7 @@ import s from "./Songs.module.scss";
 import { useRoute } from "vue-router";
 import { http } from "../shared/Http";
 import { VideoPlay, FolderAdd, Reading } from '@element-plus/icons-vue'
+import { timestampToDate } from "../constant";
 
 export const Songs = defineComponent({
   props: {
@@ -19,7 +20,7 @@ export const Songs = defineComponent({
     const isShowAll = ref('')
 
     const show = ref(false)
-    const content = ref([1, 2, 3, 4, 5])
+    const content = ref<any>([])
     const simSongs = ref<any>([])
     const requestSongs = async () => {
       const res = await http.get<any>(`/song/detail?ids=${songId}`)
@@ -31,8 +32,9 @@ export const Songs = defineComponent({
       console.log(simSongs.value)
     }
     const requestContent = async () => {
-      const res = await http.get<any>(`/simSong?id=${songId}`)
+      const res = await http.get<any>(`/getContent?id=${songId}`)
       content.value = res.data
+      console.log(res)
     }
     const requestLyric = async () => {
       const res = await http.get<any>(`/lyric?id=${songId}`)
@@ -61,6 +63,7 @@ export const Songs = defineComponent({
       requestSongs()
       requestLyric()
       requestSimSongs()
+      requestContent()
     })
     return () => (<>
       {
@@ -92,7 +95,7 @@ export const Songs = defineComponent({
                   <div class={s.button}>
                     <el-button type="primary" icon={VideoPlay} color='#233649'>播放</el-button>
                     <el-button icon={FolderAdd} color='#f1f1f1'>收藏</el-button>
-                    <el-button icon={Reading} color='#f1f1f1'>({1})</el-button>
+                    <el-button icon={Reading} color='#f1f1f1'>({content.value.length})</el-button>
                   </div>
                   <div ref={lyricRef} class={s.lyric}></div>
                   <span class={s.show} onClick={handleShow}>{show.value ? '隐藏 ↑' : '展开 ↓'}</span>
@@ -122,7 +125,7 @@ export const Songs = defineComponent({
               <div class={s.content}>
                 <div class={s.title}>
                   <div>评论 &nbsp;</div>
-                  <div class={s.count}>共有{112}条评论</div>
+                  <div class={s.count}>共有{content.value.length}条评论</div>
                 </div>
                 {
                   content.value.map(item => {
@@ -131,8 +134,10 @@ export const Songs = defineComponent({
                         <img src={item.user.avatarUrl} alt="" />
                       </div>
                       <div class={s.info}>
-                        <div class={s.a}>{item.user.nickName}: {item.content}</div>
-                        <div class={s.b}>{item.time}</div>
+                        <div class={s.a}>
+                          <span>{item.user.nickName}: </span>
+                        {item.content}</div>
+                        <div class={s.b}>{timestampToDate(item.time)}</div>
                       </div>
                     </div>
                   })

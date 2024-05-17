@@ -29,8 +29,28 @@
           }
         }
         .ctx {
-          height: 3rem;
-          margin-bottom: 0.5rem;
+          // height: 3rem;
+          margin: 0.5rem;
+          display: flex;
+          .img {
+            img {
+              width: 2rem;
+              height: 2rem;
+            }
+          }
+          .info {
+            margin-left: 0.5rem;
+            font-size: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .a {
+              line-height:1.5;
+              span {
+                color: #1578c4;
+              }
+            }
+          }
         }
       }
     }

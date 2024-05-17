@@ -1,4 +1,5 @@
 from . import index
+from bson import json_util 
 from flask import request
 from flask import jsonify
 from app.mongo import mongo
@@ -57,12 +58,12 @@ def index_newSongs():
   result = response.text
   return result
 
-@index.route('/getContent', methods=['GET'])
-def index_getContent():
-    id = request.args.get('id')
-    songs_content = list(mongo.db.contents.find({'id': id}))
-        
-    return jsonify(songs_content)
+@index.route('/getContent', methods=['GET']) 
+def index_getContent(): 
+    id = request.args.get('id') 
+    idx = int(id) 
+    songs_content = list(mongo.db.contents.find({'id': idx})) 
+    return json_util.dumps(songs_content)
 
 @index.route('/highScore', methods=['GET'])
 def index_high_score():
