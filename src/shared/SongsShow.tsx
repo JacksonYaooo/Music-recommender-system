@@ -1,6 +1,7 @@
 import { PropType, Ref, defineComponent, ref, watchEffect } from "vue";
 import s from "./SongsShow.module.scss";
 import { throttle } from "../constant";
+import { useRouter } from "vue-router";
 
 export const SongsShow = defineComponent({
   props: {
@@ -11,6 +12,7 @@ export const SongsShow = defineComponent({
   },
   setup(props, context) {
     const refs = ref<any>(null)
+    const router = useRouter()
     const handleWhell = (e) => {
       const delta = e.deltaY || e.detail || e.wheelDelta
       if (delta > 0) {
@@ -40,13 +42,17 @@ export const SongsShow = defineComponent({
     watchEffect(() => {
       refs.value?.addEventListener('wheel', throttledHandleWheel)
     })
-    console.log(props.songs)
+    const handleClick = (song) => {
+      console.log(song)
+      const id = song.album.id
+      router.push(`/songs?id=${id}`)
+    }
     return () => (
       <div class={s.songsContainer} ref={refs}>
         <div class={s.songs}>
           {
             props.songs.length > 0 && props.songs.map(song => {
-              return <div class={s.song}>
+              return <div class={s.song} onClick={() => handleClick(song)}>
                 <img class={s.bg} src={song?.album?.blurPicUrl} alt="" />
                 <div class={s.songName}>{song?.album?.name}</div>
                 <div class={s.singer}>

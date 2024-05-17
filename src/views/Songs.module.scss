@@ -1,0 +1,137 @@
+.hasSong{
+  width: 100%;
+  background: #f5f5f5;
+  min-height: 100vh;
+  .container {
+    width: 30rem;
+    margin: 0 auto;
+    background: #ffffff;
+    min-width: 10rem;
+    .x {
+      width: 30rem;
+      display: flex;
+      flex-direction: column;
+      .y {
+        width: 30rem;
+        display: flex;
+      }
+      .content {
+        font-size: 0.7rem;
+        padding: 0 1rem;
+        .title {
+          display: flex;
+          align-items: flex-end;
+          padding-bottom: 0.2rem;
+          border-bottom: 2px solid #233649;
+          .count {
+            font-size: 0.5rem;
+            color: #666666;
+          }
+        }
+        .ctx {
+          height: 3rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+    .songImg {
+      padding: 1rem 1rem;
+      .cover {
+        background-image: url('../assets/singlecover.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 6rem;
+        height: 6rem;
+        img {
+          width: 4rem;
+          height: 4rem;
+          border-radius: 50%;
+          position: relative;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+    .songInfo {
+      padding: 1rem 0;
+      width: 14rem;
+      .songName {
+        font-size: 0.6rem;
+        display: flex;
+        align-items: baseline;
+        .name {
+          margin-left: 0.4rem;
+          display: flex;
+          flex-direction: column;
+          .en {
+            margin-top: 0.1rem;
+            color: #a6abb3;
+          }
+        }
+      }
+      .info {
+        margin-top: 0.3rem;
+        font-size: 0.5rem;
+        span {
+          color: #1578c4;
+          cursor: pointer;
+        }
+      }
+      .button {
+        margin-top: 0.3rem;
+        display: flex;
+      }
+      .lyric {
+        margin-top: 1rem;
+        font-size: 0.5rem;
+        p{
+          color: #333333;
+          margin-bottom: 0.3rem;
+        }
+      }
+      .show {
+        font-size: 0.4rem;
+        cursor: pointer;
+        color: #1578c4;
+      }
+    }
+    .songsim {
+      border-left: 1px solid #efefef;
+      padding: 1rem;
+      flex: 1;
+      .title {
+        width: 100%;
+        font-size: 0.4rem;
+        font-weight: bold;
+        padding-bottom: 0.3rem;
+        border-bottom: 1px solid #cccccc;
+      }
+      .songs {
+        width: 100%;
+        margin-top: 1rem;
+        .contaniner {
+          margin-bottom: 0.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .info{ 
+            font-size: 0.5rem;
+            .author {
+              width: 3rem;
+              margin-top: 0.2rem;
+              color: #a2a2a2;
+              overflow: hidden;
+              white-space:nowrap;
+              text-overflow:ellipsis;
+            }
+          }
+          .play {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+.noSong{}

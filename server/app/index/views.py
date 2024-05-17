@@ -1,4 +1,5 @@
 from . import index
+from flask import request
 from flask import jsonify
 from app.mongo import mongo
 from bson.json_util import dumps
@@ -29,11 +30,39 @@ def index_banner():
   result = response.text
   return result
 
+@index.route('/song/detail', methods=['GET'])
+def index_detail():
+  ids = request.args.get('ids')
+  response = requests.get(f'http://codercba.com:9002/song/detail?ids={ids}', proxies=proxies)
+  result = response.text
+  return result
+
+@index.route('/lyric', methods=['GET'])
+def index_lyric():
+  id = request.args.get('id')
+  response = requests.get(f'http://127.0.0.1:3000/lyric?id={id}',proxies=proxies)
+  result = response.text
+  return result
+
+@index.route('/simSong', methods=['GET'])
+def index_simSong():
+  id = request.args.get('id')
+  response = requests.get(f'http://127.0.0.1:3000/simi/song?id={id}',proxies=proxies)
+  result = response.text
+  return result
+
 @index.route('/newSongs', methods=['GET'])
 def index_newSongs():
   response = requests.get('http://codercba.com:9002/top/song?type=7',proxies=proxies)
   result = response.text
   return result
+
+@index.route('/getContent', methods=['GET'])
+def index_getContent():
+    id = request.args.get('id')
+    songs_content = list(mongo.db.contents.find({'id': id}))
+        
+    return jsonify(songs_content)
 
 @index.route('/highScore', methods=['GET'])
 def index_high_score():

@@ -34,6 +34,7 @@ export const Home = defineComponent({
       const res = await http.get<any>('/highScore')
       highSongs.value = res.data.data.map(item => ({
         album: {
+          id: item.id,
           blurPicUrl: item.picUrl,
           name: item.name,
           score: item.score,
