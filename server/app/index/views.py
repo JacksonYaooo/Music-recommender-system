@@ -397,11 +397,44 @@ def index_addScore():
 
     return jsonify({'comment_scores': all_comment_scores})
 
-@index.route('/search', methods=['GET'])
+@index.route('/newPeopleComputed', methods=['GET'])
 def index_search():
-    contents_with_score = list(mongo.db.contents.find({"score": {"$exists": False}}))
-    
-    return jsonify({"count": len(contents_with_score)})
+    articles = request.args.get('article', '').split(',')
+    # 确保数组不为空
+    articles = [article.strip() for article in articles if article.strip()]
+    types = request.args.get('type', '').split(',')
+    publishTimes = request.args.get('year', '').split(',')
+
+    # 清理并过滤掉空白字符串
+    types = [t.strip() for t in types if t.strip()]
+    publishTimes = [pt.strip() for pt in publishTimes if pt.strip()]
+    # 歌手 风格 年代
+    cooperate_scores = {
+        'type': 0.3,
+        'article': 0.4,
+        'year': 0.3
+    }
+
+    songs_data = list(mongo.db.songs.find())
+    for song in songs_data:
+        new_people_score = 0
+        if 'article' in song and any(song_article == song['article'] for song_article in articles):
+            new_people_score += cooperate_scores['article']
+        # 检查类型是否匹配
+        if 'type' in song and any(song_type == song['type'] for song_type in types):
+            new_people_score += cooperate_scores['type']
+        
+        # 检查年份是否匹配
+        song_decade = convert_to_decade(song.get('publishTime', ''))
+        if 'publishTime' in song and any(song_decade == str(pt) for pt in publishTimes):
+            new_people_score += cooperate_scores['year']
+        
+        # 将计算出的得分添加到文档
+        song['new_people_score'] = new_people_score
+
+    # 返回包含新字段的数据列表
+    songs_data_sorted = sorted(songs_data, key=lambda x: x.get('new_people_score', 0), reverse=True)[:15]
+    return json_util.dumps(songs_data_sorted)
 # 忘了是啥
 @index.route('/xxx', methods=['GET'])
 def index_xxx():

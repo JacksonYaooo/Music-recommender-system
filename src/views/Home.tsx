@@ -5,9 +5,12 @@ import { imgFormat, throttle } from "../constant";
 import { SongsShow } from "../shared/SongsShow";
 import { http } from "../shared/Http";
 import axios from "axios";
+import router from "../router";
+import { useRouter } from "vue-router";
 
 export const Home = defineComponent({
   setup(props, context) {
+    const router = useRouter()
     const wrapper = ref<any>(null)
     const images = ref([])
     const songs = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -28,8 +31,9 @@ export const Home = defineComponent({
         mp3Url: item.mp3Url
       })).splice(0, 22)
       isLoading.value = false
-      wrapper.value.style.height = 'auto'
-
+      if(wrapper.value) {
+        wrapper.value.style.height = 'auto'
+      }
     }
     const requestHighScore = async () => {
       const res = await http.get<any>('/highScore')
@@ -59,6 +63,25 @@ export const Home = defineComponent({
         mp3Url: ''
       }))
     }
+    const fetchNewPeopleScore = async (obj) => {
+      console.log(1111, obj)
+      const res = await http.get<any>('/newPeopleComputed', {
+        article: obj.article,
+        type: obj.type,
+        year: obj.year
+      })
+      mightLike.value = res.data.map(item => ({
+        album: {
+          id: item.id,
+          blurPicUrl: item.picUrl,
+          name: item.name,
+          score: item.score,
+          artists: [{ name: item.article }]
+        },
+        mp3Url: ''
+      }))
+      console.log(mightLike.value)
+    }
     const requestList = async () => {
       const res1 = await axios.get('http://codercba.com:9002/playlist/track/all?id=19723756&limit=10&offset=1')
       const res2 = await axios.get('http://codercba.com:9002/playlist/track/all?id=3779629&limit=10&offset=1')
@@ -70,12 +93,19 @@ export const Home = defineComponent({
       ]
     }
     onMounted(() => {
+      const user = localStorage.getItem('loginInfo')
+      const suggest = localStorage.getItem('suggest') as string
+      if (!suggest && user !== 'root') {
+        router.push('/personal')
+      } else {
+        fetchNewPeopleScore(JSON.parse(suggest))
+      }
       wrapper.value.style.height = '100vh'
       requestBanner()
       requestNewSongs()
       requestHighScore()
       requestList()
-      requestMightLike()
+      user === 'root' && requestMightLike()
     })
     return () => (
       <div ref={wrapper} class={s.wrapper} v-loading={isLoading.value} element-loading-text={'加载中...'}>
