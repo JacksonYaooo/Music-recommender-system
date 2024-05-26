@@ -45,7 +45,8 @@ export const SongsShow = defineComponent({
     const handleClick = (song) => {
       console.log(song)
       const id = song.album.id
-      router.push(`/songs?id=${id}`)
+      const score = song.album.score
+      router.push(`/songs?id=${id}&score=${score}`)
     }
     return () => (
       <div class={s.songsContainer} ref={refs}>

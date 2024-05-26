@@ -33,6 +33,7 @@ export const Home = defineComponent({
     }
     const requestHighScore = async () => {
       const res = await http.get<any>('/highScore')
+      console.log(res)
       highSongs.value = res.data.data.map(item => ({
         album: {
           id: item.id,

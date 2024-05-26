@@ -5,6 +5,7 @@ from flask import jsonify
 from app.mongo import mongo
 from bson.json_util import dumps
 from random import sample, randint, shuffle
+from flask import Flask, Response, request, jsonify
 import random
 import requests
 import re
@@ -356,6 +357,51 @@ def index_getCooperateSongs():
     # 将处理后的查询结果转换为JSON并返回
     return jsonify(cooperate_data), 200
 
+# 给每一条评论添加情感分析
+@index.route('/addScore', methods=['GET'])
+def index_addScore():
+    content_data = mongo.db.contents.find(
+        {"score": {"$exists": False}},
+        {'_id': 1, 'content': 1}  # 只查询_id和content字段以加快速度
+    )
+    # 如果查询结果为空，返回空列表
+    if not content_data:
+        return jsonify([])
+
+    # 存储所有评论的情感得分和评论内容
+    all_comment_scores = []
+    # 存储所有更新请求
+    bulk_updates = []
+    # 遍历每个歌曲数据
+    for content in content_data:
+        # 获取当前歌曲的ID
+        content_id = content['_id']
+
+        comment_text = content['content']
+        try:
+            # 可能引发异常的代码段
+            sentiment_score = snownlp.SnowNLP(comment_text).sentiments
+        except Exception as e:
+            print("An error occurred:", e)
+            sentiment_score = 5.0
+        print(content_id, sentiment_score)
+        # 构建更新请求
+        update_request = UpdateOne({'_id': content_id}, {'$set': {'score': sentiment_score}}, upsert=True)
+        bulk_updates.append(update_request)
+        if len(bulk_updates) >= 1000:
+            mongo.db.contents.bulk_write(bulk_updates)
+            bulk_updates = []  # 清空列表准备下一批次的更新
+        # 批量执行更新请求
+        if bulk_updates:
+            mongo.db.contents.bulk_write(bulk_updates)
+
+    return jsonify({'comment_scores': all_comment_scores})
+
+@index.route('/search', methods=['GET'])
+def index_search():
+    contents_with_score = list(mongo.db.contents.find({"score": {"$exists": False}}))
+    
+    return jsonify({"count": len(contents_with_score)})
 # 忘了是啥
 @index.route('/xxx', methods=['GET'])
 def index_xxx():

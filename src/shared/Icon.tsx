@@ -1,10 +1,6 @@
 import { PropType, defineComponent, ref } from 'vue';
-import {
-  Document,
-  Menu as IconMenu,
-  Setting,
-} from '@element-plus/icons-vue'
-export type IconType = 'Document' | 'IconMenu' | 'Location' | 'Setting'
+export type IconType = 'icon-geren' | 'icon-shouye' | 'icon-a-erjitinggegequshouting' | 'icon-aixin' | 'icon-shishishujuzhanshi'
+import s from './Icon.module.scss'
 export const Icon = defineComponent({
   props: {
     name: {
@@ -14,21 +10,8 @@ export const Icon = defineComponent({
     }
   },
   setup: (props, context) => {
-    const showIcon = () => {
-      switch (props.name) {
-        case 'Document':
-          return <Document />
-        case 'IconMenu':
-          return <IconMenu />
-        case 'Setting':
-          return <Setting />
-        default:
-          break;
-      }
-    }
-
     return () => (
-      <div>{showIcon()}</div>
+      <div class={s.icon}><i class={`iconfont ${props.name}`}></i></div>
     )
   }
 })

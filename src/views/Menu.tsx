@@ -17,11 +17,11 @@ export const Menu = defineComponent({
     const isLoading = ref(true)
 
     const MenuMap: IMenu[] = [
-      { title: '个人中心', route: 'personal', icon: 'IconMenu' },
-      { title: '主页', route: 'home', icon: 'IconMenu' },
-      { title: '歌曲', route: 'songs', icon: 'Document' },
-      { title: '我的喜欢', route: 'mylike', icon: 'Setting' },
-      { title: '数据展示', route: 'data', icon: 'Setting' },
+      { title: '个人中心', route: 'personal', icon: 'icon-geren' },
+      { title: '主页', route: 'home', icon: 'icon-shouye' },
+      { title: '歌曲', route: 'songs', icon: 'icon-a-erjitinggegequshouting' },
+      { title: '我的喜欢', route: 'mylike', icon: 'icon-aixin' },
+      { title: '数据展示', route: 'data', icon: 'icon-shishishujuzhanshi' },
     ]
     watchEffect(() => {
       const routePath = route.path.split('/')[1]
@@ -47,7 +47,7 @@ export const Menu = defineComponent({
                   MenuMap.map((it, i) => {
                     return <router-link style='text-decoration: none;' to={it.route}>
                       <el-menu-item style='height: 10vh; fontSize: 0.4rem;' index={String(i + 1)} key={i}>
-                        <el-icon><Icon name={it.icon} /></el-icon>
+                        <Icon name={it.icon} />
                         {it.title}
                       </el-menu-item>
                     </router-link>

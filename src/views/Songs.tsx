@@ -14,6 +14,7 @@ export const Songs = defineComponent({
   setup(props, context) {
     const route = useRoute()
     const songId = route.query.id
+    const songScore = route.query.score
     const songInfo = ref<any>({})
     const lyric = ref<string>('')
     const lyricRef = ref<any>(null)
@@ -29,12 +30,10 @@ export const Songs = defineComponent({
     const requestSimSongs = async () => {
       const res = await http.get<any>(`/simSong?id=${songId}`)
       simSongs.value = res.data.songs
-      console.log(simSongs.value)
     }
     const requestContent = async () => {
       const res = await http.get<any>(`/getContent?id=${songId}`)
       content.value = res.data
-      console.log(res)
     }
     const requestLyric = async () => {
       const res = await http.get<any>(`/lyric?id=${songId}`)
@@ -43,7 +42,7 @@ export const Songs = defineComponent({
     }
     const formatLyrics = () => {
       // 使用正则表达式匹配歌词内容，去除时间戳
-      const lyricsOnly = lyric.value.replace(/\[\d{2}:\d{2}\.\d{2}\] */g, '')
+      const lyricsOnly = lyric.value.replace(/\[\d{2}:\d{2}(?:\.\d{3})?\]\s*/g, '');
       // 分割歌词为数组，处理每行内容
       const lines = lyricsOnly.split('\n').map(line => {
         // 如果行不为空，则包装在<p>标签内以支持换行
@@ -59,6 +58,13 @@ export const Songs = defineComponent({
       show.value = !show.value
       lyricRef.value.innerHTML = show.value ? lyric.value : isShowAll.value
     }
+
+    function sliceScore(score) {
+      if(!score) return
+      let x = String(score * 10)
+      const y = x.split('.')
+      return y[0] + '.' + y[1]?.slice(0, 2)
+  }
     onMounted(() => {
       requestSongs()
       requestLyric()
@@ -74,6 +80,7 @@ export const Songs = defineComponent({
                 <div class={s.songImg}>
                   <div class={s.cover}>
                     <img src={songInfo.value?.al?.picUrl} alt="" />
+                    <div class={s.score}>{songScore}</div>
                   </div>
                 </div>
                 <div class={s.songInfo}>
@@ -137,7 +144,10 @@ export const Songs = defineComponent({
                         <div class={s.a}>
                           <span>{item.user.nickName}: </span>
                         {item.content}</div>
-                        <div class={s.b}>{timestampToDate(item.time)}</div>
+                        <div class={s.b}>
+                          <div>{timestampToDate(item.time)}</div>
+                          <div>{sliceScore(item.score)}</div>
+                        </div>
                       </div>
                     </div>
                   })

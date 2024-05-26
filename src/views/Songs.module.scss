@@ -39,6 +39,7 @@
             }
           }
           .info {
+            flex: 1;
             margin-left: 0.5rem;
             font-size: 0.5rem;
             display: flex;
@@ -50,19 +51,32 @@
                 color: #1578c4;
               }
             }
+            .b {
+              display: flex;
+              justify-content: space-between;
+            }
           }
         }
       }
     }
     .songImg {
       padding: 1rem 1rem;
+      
       .cover {
         background-image: url('../assets/singlecover.png');
         background-repeat: no-repeat;
         background-size: 100% 100%;
         width: 6rem;
         height: 6rem;
+        .score {
+          font-size: 1rem;
+          position: relative;
+          top: -1.5rem;
+          left: 2.2rem;
+          z-index: 0;
+        }
         img {
+          z-index: 9;
           width: 4rem;
           height: 4rem;
           border-radius: 50%;
@@ -70,6 +84,10 @@
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50%);
+          transition: transform 0.6s ease;
+        }
+        img:hover {
+          transform: rotate(360deg);
         }
       }
     }
