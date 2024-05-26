@@ -24,8 +24,13 @@ export const Personal = defineComponent({
     const articles = ref<any>([
       { name: '林俊杰', id: 3684, url: '' },
       { name: '陈奕迅', id: 2116, url: '' },
-      { name: '邓紫棋', id: 7763, url: '' },
-      { name: '薛之谦', id: 5781, url: '' }
+      { name: 'G.E.M.邓紫棋', id: 7763, url: '' },
+      { name: '薛之谦', id: 5781, url: '' },
+      { name: '汪苏泷', id: 5538, url: '' },
+      { name: '毛不易', id: 12138269, url: '' },
+      { name: '张杰', id: 6472, url: '' },
+      { name: '张碧晨', id: 1024308, url: '' },
+      { name: '李荣浩', id: 4292, url: '' }
     ])
     const types = ref<any>([
       { type: '华语', id: 5001 },
@@ -78,6 +83,19 @@ export const Personal = defineComponent({
         return res.data.data.artist.avatar
       }
     }
+    const refresh = () => {
+      articles.value = [
+        { name: '张博涵', id: 1, url: 'https://jobpost-file-1314966552.cos.ap-shanghai.myqcloud.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240526184133.jpg' },
+        { name: '王轶博', id: 2, url: 'https://jobpost-file-1314966552.cos.ap-shanghai.myqcloud.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240526191035.jpg' },
+        { name: '张博涵', id: 3, url: 'https://jobpost-file-1314966552.cos.ap-shanghai.myqcloud.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240526190739.jpg' },
+        { name: '03+', id: 4, url: 'https://jobpost-file-1314966552.cos.ap-shanghai.myqcloud.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240526190704.jpg' },
+        { name: '个人秀', id: 5, url: 'https://jobpost-file-1314966552.cos.ap-shanghai.myqcloud.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240526190710.jpg' },
+        { name: '03+', id: 6, url: 'https://jobpost-file-1314966552.cos.ap-shanghai.myqcloud.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240526190715.jpg' },
+        { name: '洛阳', id: 7, url: 'https://jobpost-file-1314966552.cos.ap-shanghai.myqcloud.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240526190724.jpg' },
+        { name: '个人秀', id: 8, url: 'https://jobpost-file-1314966552.cos.ap-shanghai.myqcloud.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240526190720.jpg' },
+        { name: '洛阳', id: 9, url: 'https://jobpost-file-1314966552.cos.ap-shanghai.myqcloud.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240526190728.jpg' }
+      ]
+    }
     onMounted(async () => {
       const user = localStorage.getItem('loginInfo')
       const suggest = localStorage.getItem('suggest')
@@ -86,6 +104,7 @@ export const Personal = defineComponent({
       setTimeout(() => {
         const x: any = document.querySelector('.el-checkbox-group')
         x.style.display = 'flex'
+        x.style.flexWrap = 'wrap'
       })
       await fetchArticleUrl()
     })
@@ -120,6 +139,7 @@ export const Personal = defineComponent({
                         }
                       </el-checkbox-group>
                     </div>
+                    <div class={s.refresh} onClick={refresh}>不感兴趣？换一批</div>
                   </div > : (
                     progress.value === 1 ?
                       <div class={s.container}>

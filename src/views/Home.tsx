@@ -37,7 +37,6 @@ export const Home = defineComponent({
     }
     const requestHighScore = async () => {
       const res = await http.get<any>('/highScore')
-      console.log(res)
       highSongs.value = res.data.data.map(item => ({
         album: {
           id: item.id,
@@ -64,7 +63,6 @@ export const Home = defineComponent({
       }))
     }
     const fetchNewPeopleScore = async (obj) => {
-      console.log(1111, obj)
       const res = await http.get<any>('/newPeopleComputed', {
         article: obj.article,
         type: obj.type,
@@ -80,7 +78,6 @@ export const Home = defineComponent({
         },
         mp3Url: ''
       }))
-      console.log(mightLike.value)
     }
     const requestList = async () => {
       const res1 = await axios.get('http://codercba.com:9002/playlist/track/all?id=19723756&limit=10&offset=1')

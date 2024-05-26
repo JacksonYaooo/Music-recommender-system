@@ -397,6 +397,16 @@ def index_addScore():
 
     return jsonify({'comment_scores': all_comment_scores})
 
+# 查询所有歌手
+@index.route('/search/singer', methods=['GET'])
+def index_searchSinger():
+    # 使用聚合管道统计不同的article（歌手）数量
+    artist_count = mongo.db.songs.aggregate([
+        {"$group": {"_id": "$article", "count": {"$sum": 1}}},
+        {"$group": {"_id": None, "total_artists": {"$sum": 1}}}
+    ])
+    return '1'
+# 新用户协同过滤算法
 @index.route('/newPeopleComputed', methods=['GET'])
 def index_search():
     articles = request.args.get('article', '').split(',')
