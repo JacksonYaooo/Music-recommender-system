@@ -3,6 +3,7 @@ import s from "./Personal.module.scss";
 import { http } from "../shared/Http";
 import { imgFormat } from "../constant";
 import router from "../router";
+import { PersonalInfo } from "./PersonalInfo";
 
 export const Personal = defineComponent({
   props: {
@@ -99,7 +100,11 @@ export const Personal = defineComponent({
     onMounted(async () => {
       const user = localStorage.getItem('loginInfo')
       const suggest = localStorage.getItem('suggest')
-      hasSuggest.value = suggest ? true : false
+      if (user === 'root') {
+        hasSuggest.value = true
+      } else {
+        hasSuggest.value = suggest ? true : false
+      }
 
       setTimeout(() => {
         const x: any = document.querySelector('.el-checkbox-group')
@@ -112,7 +117,7 @@ export const Personal = defineComponent({
       <>
         {
           hasSuggest.value ?
-            <div>11</div> :
+            <PersonalInfo /> :
             <div class={s.suggest}>
               <div style="width: 40rem;">
                 <el-steps direction="horizontal" active={progress.value} align-center>
