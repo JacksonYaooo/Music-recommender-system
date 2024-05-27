@@ -79,6 +79,18 @@ export const Songs = defineComponent({
     const skipSongDetail = (x) => {
       router.push(`/songs?id=${x.id}&score=${x.score}`)
     }
+    const fetchSearchSongs = async () => {
+      if (!searchValue.value) return
+      const type = selectValue.value === '1' ? 1006 : 1
+      const res = await http.get<any>(`http://localhost:3000/search?keywords=${searchValue.value}&type=${type}`)
+      const data = res.data.result.songs?.map(it => ({
+        name: it.name,
+        article: it.artists.map(artist => artist.name).join(" & "),
+        type: '未知',
+        publishTime: '未知'
+      }))
+      tableData.value = data
+    }
     watch(() => route.query.id, (newId) => {
       songId.value = newId
       if (newId) {
@@ -191,13 +203,14 @@ export const Songs = defineComponent({
             <div class={s.container}>
               <div class={s.search}>
                 <el-select v-model={selectValue.value} placeholder="搜索类型" style="width: 115px">
-                  <el-option label="歌手" value="1" />
-                  <el-option label="歌曲" value="2" />
+                  <el-option label="歌曲片段" value="1" />
+                  <el-option label="歌曲名称" value="2" />
                 </el-select>
                 <el-input
                   v-model={searchValue.value}
                   suffix-icon={Search}
                   clearable={true}
+                  onChange={fetchSearchSongs}
                 >
                 </el-input>
               </div>
@@ -207,7 +220,7 @@ export const Songs = defineComponent({
               <div class={s.list}>
                 <div class={s.header}>
                   <span>歌曲列表</span>
-                  <span class={s.songNum}>{147}首歌</span>
+                  <span class={s.songNum}>{tableData.value.length}首歌</span>
                 </div>
                 <div class={s.songs}>
                   <el-table data={tableData.value} stripe onRowClick={skipSongDetail} >
