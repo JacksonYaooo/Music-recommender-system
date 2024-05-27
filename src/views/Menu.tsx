@@ -21,7 +21,7 @@ export const Menu = defineComponent({
       { title: '主页', route: 'home', icon: 'icon-shouye' },
       { title: '歌曲', route: 'songs', icon: 'icon-a-erjitinggegequshouting' },
       { title: '我的喜欢', route: 'mylike', icon: 'icon-aixin' },
-      { title: '数据展示', route: 'data', icon: 'icon-shishishujuzhanshi' },
+      // { title: '数据展示', route: 'data', icon: 'icon-shishishujuzhanshi' },
     ]
     watchEffect(() => {
       const routePath = route.path.split('/')[1]

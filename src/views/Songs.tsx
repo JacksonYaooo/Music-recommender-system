@@ -1,9 +1,11 @@
-import { PropType, defineComponent, onMounted, ref } from "vue";
+import { PropType, defineComponent, onMounted, ref, watch } from "vue";
 import s from "./Songs.module.scss";
 import { useRoute } from "vue-router";
 import { http } from "../shared/Http";
 import { VideoPlay, FolderAdd, Reading } from '@element-plus/icons-vue'
 import { timestampToDate } from "../constant";
+import { Search } from '@element-plus/icons-vue'
+import router from "../router";
 
 export const Songs = defineComponent({
   props: {
@@ -13,7 +15,7 @@ export const Songs = defineComponent({
   },
   setup(props, context) {
     const route = useRoute()
-    const songId = route.query.id
+    const songId = ref<any>(null)
     const songScore = route.query.score
     const songInfo = ref<any>({})
     const lyric = ref<string>('')
@@ -23,20 +25,24 @@ export const Songs = defineComponent({
     const show = ref(false)
     const content = ref<any>([])
     const simSongs = ref<any>([])
+
+    const searchValue = ref('')
+    const selectValue = ref('2')
+    const tableData = ref([])
     const requestSongs = async () => {
-      const res = await http.get<any>(`/song/detail?ids=${songId}`)
+      const res = await http.get<any>(`/song/detail?ids=${songId.value}`)
       songInfo.value = res.data?.songs?.[0]
     }
     const requestSimSongs = async () => {
-      const res = await http.get<any>(`/simSong?id=${songId}`)
+      const res = await http.get<any>(`/simSong?id=${songId.value}`)
       simSongs.value = res.data.songs
     }
     const requestContent = async () => {
-      const res = await http.get<any>(`/getContent?id=${songId}`)
+      const res = await http.get<any>(`/getContent?id=${songId.value}`)
       content.value = res.data
     }
     const requestLyric = async () => {
-      const res = await http.get<any>(`/lyric?id=${songId}`)
+      const res = await http.get<any>(`/lyric?id=${songId.value}`)
       lyric.value = res.data.lrc.lyric
       formatLyrics()
     }
@@ -60,20 +66,44 @@ export const Songs = defineComponent({
     }
 
     function sliceScore(score) {
-      if(!score) return
+      if (!score) return
       let x = String(score * 10)
       const y = x.split('.')
       return y[0] + '.' + y[1]?.slice(0, 2)
-  }
+    }
+
+    const requestMySongs = async () => {
+      const res = await http.get<any>('/getSongs')
+      tableData.value = res.data
+    }
+    const skipSongDetail = (x) => {
+      router.push(`/songs?id=${x.id}&score=${x.score}`)
+    }
+    watch(() => route.query.id, (newId) => {
+      songId.value = newId
+      if (newId) {
+        requestSongs()
+        requestLyric()
+        requestSimSongs()
+        requestContent()
+      } else {
+        requestMySongs()
+      }
+    })
     onMounted(() => {
-      requestSongs()
-      requestLyric()
-      requestSimSongs()
-      requestContent()
+      songId.value = route.query.id
+      if (songId.value) {
+        requestSongs()
+        requestLyric()
+        requestSimSongs()
+        requestContent()
+      } else {
+        requestMySongs()
+      }
     })
     return () => (<>
       {
-        songId ? <div class={s.hasSong}>
+        songId.value ? <div class={s.hasSong}>
           <div class={s.container}>
             <div class={s.x}>
               <div class={s.y}>
@@ -143,7 +173,7 @@ export const Songs = defineComponent({
                       <div class={s.info}>
                         <div class={s.a}>
                           <span>{item.user.nickName}: </span>
-                        {item.content}</div>
+                          {item.content}</div>
                         <div class={s.b}>
                           <div>{timestampToDate(item.time)}</div>
                           <div>{sliceScore(item.score)}</div>
@@ -155,10 +185,42 @@ export const Songs = defineComponent({
               </div>
             </div>
           </div>
-
         </div>
           :
-          <div class={s.noSong}>2</div>
+          <div class={s.noSong}>
+            <div class={s.container}>
+              <div class={s.search}>
+                <el-select v-model={selectValue.value} placeholder="搜索类型" style="width: 115px">
+                  <el-option label="歌手" value="1" />
+                  <el-option label="歌曲" value="2" />
+                </el-select>
+                <el-input
+                  v-model={searchValue.value}
+                  suffix-icon={Search}
+                  clearable={true}
+                >
+                </el-input>
+              </div>
+              <div class={s.info}>
+                <div>全部歌曲</div>
+              </div>
+              <div class={s.list}>
+                <div class={s.header}>
+                  <span>歌曲列表</span>
+                  <span class={s.songNum}>{147}首歌</span>
+                </div>
+                <div class={s.songs}>
+                  <el-table data={tableData.value} stripe onRowClick={skipSongDetail} >
+                    <el-table-column type="index" width="50" />
+                    <el-table-column prop="name" label="歌曲标题" />
+                    <el-table-column prop="article" label="歌手" width="180" />
+                    <el-table-column prop="type" label="风格" width="180" />
+                    <el-table-column prop="publishTime" label="发行时间" width="180" />
+                  </el-table>
+                </div>
+              </div>
+            </div>
+          </div>
       }
     </>
     )

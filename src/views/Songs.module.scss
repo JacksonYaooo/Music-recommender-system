@@ -1,4 +1,4 @@
-.hasSong{
+.hasSong {
   width: 100%;
   background: #f5f5f5;
   min-height: 100vh;
@@ -46,7 +46,7 @@
             flex-direction: column;
             justify-content: space-between;
             .a {
-              line-height:1.5;
+              line-height: 1.5;
               span {
                 color: #1578c4;
               }
@@ -61,9 +61,9 @@
     }
     .songImg {
       padding: 1rem 1rem;
-      
+
       .cover {
-        background-image: url('../assets/singlecover.png');
+        background-image: url("../assets/singlecover.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
         width: 6rem;
@@ -123,7 +123,7 @@
       .lyric {
         margin-top: 1rem;
         font-size: 0.5rem;
-        p{
+        p {
           color: #333333;
           margin-bottom: 0.3rem;
         }
@@ -153,15 +153,15 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          .info{ 
+          .info {
             font-size: 0.5rem;
             .author {
               width: 3rem;
               margin-top: 0.2rem;
               color: #a2a2a2;
               overflow: hidden;
-              white-space:nowrap;
-              text-overflow:ellipsis;
+              white-space: nowrap;
+              text-overflow: ellipsis;
             }
           }
           .play {
@@ -172,4 +172,38 @@
     }
   }
 }
-.noSong{}
+.noSong {
+  width: 100%;
+  background: #f5f5f5;
+  min-height: 100vh;
+  .container {
+    width: 30rem;
+    margin: 0 auto;
+    background: #ffffff;
+    min-width: 10rem;
+    .search {
+      display: flex;
+      padding: 1rem;
+    }
+    .info {
+      padding: 0 1rem;
+      font-size: 0.7rem;
+    }
+    .list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      .header {
+        font-size: 0.7rem;
+        padding-bottom: 0.2rem;
+        padding-left: 1rem;
+        border-bottom: 0.1rem solid #c20c0c;
+        :nth-child(2) {
+          margin-left: 1rem;
+          font-size: 0.5rem;
+          color: #666;
+        }
+      }
+    }
+  }
+}

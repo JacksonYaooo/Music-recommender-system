@@ -1,4 +1,4 @@
-@import url("//at.alicdn.com/t/c/font_4550583_4jceks9os0u.css");
+@import url("//at.alicdn.com/t/c/font_4550583_1nytj123mwl.css");
 /* .iconfont {
   font-size: 1rem;
 } */
@@ -6,9 +6,15 @@
   font-size: 0.6rem;
   /* color: #e5404f; */
 }
+.icon-un {
+  color: #c20c0c;
+}
 .icon-aixin1 {
   font-size: 0.6rem;
 }
 .icon-tuichudenglu {
   font-size: 24px;
+}
+.icon-bofang {
+  cursor: pointer;
 }

@@ -59,6 +59,11 @@ def index_newSongs():
   result = response.text
   return result
 
+@index.route('/getSongs', methods=['GET'])
+def index_getSongs():
+    songs_content = list(mongo.db.songs.find()) 
+
+    return json_util.dumps(songs_content)
 @index.route('/getContent', methods=['GET']) 
 def index_getContent(): 
     id = request.args.get('id') 
