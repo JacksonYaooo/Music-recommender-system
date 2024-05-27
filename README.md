@@ -14,3 +14,15 @@ http://codercba.com:9002/
 [原创榜 id=2884035](http://codercba.com:9002/search?keywords=%E5%8E%9F%E5%88%9B%E6%A6%9C&type=1000)
 
 ```
+
+### 使用技巧
+
+> 1. 终端输入```npm run dev```打开前端项目
+
+> 2. 新开终端，输入
+```bash
+  cd server
+  python run.py
+```
+
+> 3. 打开```package```项目，终端输入```npm run start```启动后台服务
