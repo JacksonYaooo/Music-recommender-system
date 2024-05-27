@@ -16,7 +16,8 @@ export const Songs = defineComponent({
   setup(props, context) {
     const route = useRoute()
     const songId = ref<any>(null)
-    const songScore = route.query.score
+    const songScore = ref<any>(null)
+    const like = ref<any>(null)
     const songInfo = ref<any>({})
     const lyric = ref<string>('')
     const lyricRef = ref<any>(null)
@@ -77,7 +78,7 @@ export const Songs = defineComponent({
       tableData.value = res.data
     }
     const skipSongDetail = (x) => {
-      router.push(`/songs?id=${x.id}&score=${x.score}`)
+      router.push(`/songs?id=${x.id}&score=${x.score}&like=${x.like}`)
     }
     const fetchSearchSongs = async () => {
       if (!searchValue.value) return
@@ -91,8 +92,21 @@ export const Songs = defineComponent({
       }))
       tableData.value = data
     }
+    const fetchUpdateLike = async (like:string) => {
+      await http.get('/updateLike', {like, id: songId.value})
+    }
+    const handleLike = () => {
+      if (like.value === '1') {
+        like.value = '0'
+      } else {
+        like.value = '1'
+      }
+      fetchUpdateLike(like.value)
+    }
     watch(() => route.query.id, (newId) => {
       songId.value = newId
+      songScore.value = route.query.score
+      like.value = route.query.like
       if (newId) {
         requestSongs()
         requestLyric()
@@ -104,6 +118,8 @@ export const Songs = defineComponent({
     })
     onMounted(() => {
       songId.value = route.query.id
+      songScore.value = route.query.score
+      like.value = route.query.like
       if (songId.value) {
         requestSongs()
         requestLyric()
@@ -122,7 +138,7 @@ export const Songs = defineComponent({
                 <div class={s.songImg}>
                   <div class={s.cover}>
                     <img src={songInfo.value?.al?.picUrl} alt="" />
-                    <div class={s.score}>{songScore}</div>
+                    <div class={s.score}>{songScore.value}</div>
                   </div>
                 </div>
                 <div class={s.songInfo}>
@@ -143,7 +159,7 @@ export const Songs = defineComponent({
                   <div class={s.info}>所属专辑：<span>{songInfo.value?.al?.name || ''}</span></div>
                   <div class={s.button}>
                     <el-button type="primary" icon={VideoPlay} color='#233649'>播放</el-button>
-                    <el-button icon={FolderAdd} color='#f1f1f1'>收藏</el-button>
+                    <el-button onClick={handleLike} icon={FolderAdd} color={like.value === '1' ? '#ce3c3a' : '#f1f1f1'}>{like.value === '1' ? '已收藏':'收藏'}</el-button>
                     <el-button icon={Reading} color='#f1f1f1'>({content.value.length})</el-button>
                   </div>
                   <div ref={lyricRef} class={s.lyric}></div>

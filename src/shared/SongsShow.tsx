@@ -43,10 +43,10 @@ export const SongsShow = defineComponent({
       refs.value?.addEventListener('wheel', throttledHandleWheel)
     })
     const handleClick = (song) => {
-      console.log(song)
       const id = song.album.id
       const score = song.album.score
-      router.push(`/songs?id=${id}&score=${score}`)
+      const like = song.album.like
+      router.push(`/songs?id=${id}&score=${score}&like=${like}`)
     }
     return () => (
       <div class={s.songsContainer} ref={refs}>

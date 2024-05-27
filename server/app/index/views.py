@@ -64,6 +64,18 @@ def index_getSongs():
     songs_content = list(mongo.db.songs.find()) 
 
     return json_util.dumps(songs_content)
+@index.route('/getMyLike', methods=['GET'])
+def index_getMyLike():
+    songs_content = list(mongo.db.songs.find({"like": 1})) 
+
+    return json_util.dumps(songs_content)
+@index.route('/updateLike', methods=['GET'])
+def index_updateLike():
+    id = request.args.get('id')
+    like = request.args.get('like')
+
+    result = mongo.db.songs.update_one({"id": int(id)}, {"$set": {"like": int(like)}})
+    return jsonify({"updated": result.modified_count > 0})
 @index.route('/getContent', methods=['GET']) 
 def index_getContent(): 
     id = request.args.get('id') 

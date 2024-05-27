@@ -43,6 +43,7 @@ export const Home = defineComponent({
           blurPicUrl: item.picUrl,
           name: item.name,
           score: item.score,
+          like: item.like,
           artists: [{ name: item.article }]
         },
         mp3Url: ''
@@ -57,6 +58,7 @@ export const Home = defineComponent({
           blurPicUrl: item.picUrl,
           name: item.name,
           score: item.score,
+          like: item.like,
           artists: [{ name: item.article }]
         },
         mp3Url: ''
@@ -73,6 +75,7 @@ export const Home = defineComponent({
           id: item.id,
           blurPicUrl: item.picUrl,
           name: item.name,
+          like: item.like,
           score: item.score,
           artists: [{ name: item.article }]
         },
