@@ -10,6 +10,7 @@ export const PersonalInfo = defineComponent({
       localStorage.removeItem('suggest')
       router.push('/login')
     }
+    const rootName = localStorage.getItem('loginInfo')
     return () => (
       <div class={s.wrapper}>
         <div class={s.box1}></div>
@@ -17,7 +18,7 @@ export const PersonalInfo = defineComponent({
         <div class={s.container}>
           <div class={s.img}></div>
           <div class={s.info}>
-            <h1>Huang Mengyao</h1>
+            <h1>{rootName === "root" ? "root" : "AAA_123"}</h1>
             <div class={s.cents}>
               <span>"灾祸中见机会，乐观者之光。"</span>
             </div>
