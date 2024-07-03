@@ -82,7 +82,6 @@ def index_getContent():
     idx = int(id) 
     songs_content = list(mongo.db.contents.find({'id': idx})) 
     return json_util.dumps(songs_content)
-
 @index.route('/highScore', methods=['GET'])
 def index_high_score():
     # 获取所有歌曲数据
@@ -280,8 +279,6 @@ def index_addData():
     mongo.db.cooperate.update_one({'name': 'root'}, {'$set': update_data})
     return jsonify(result)
 
-
-
 # 年代计算
 def convert_to_decade(date_str):
     if not isinstance(date_str, str) or "年" not in date_str:
@@ -423,7 +420,8 @@ def index_searchSinger():
         {"$group": {"_id": None, "total_artists": {"$sum": 1}}}
     ])
     return '1'
-# 新用户协同过滤算法
+
+# 新用户推荐算法
 @index.route('/newPeopleComputed', methods=['GET'])
 def index_search():
     articles = request.args.get('article', '').split(',')
@@ -462,7 +460,8 @@ def index_search():
     # 返回包含新字段的数据列表
     songs_data_sorted = sorted(songs_data, key=lambda x: x.get('new_people_score', 0), reverse=True)[:15]
     return json_util.dumps(songs_data_sorted)
-# 忘了是啥
+
+# 协同过滤算法
 @index.route('/xxx', methods=['GET'])
 def index_xxx():
     cooperate_data = list(mongo.db.cooperate.find())
